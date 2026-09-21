@@ -1,3 +1,31 @@
+# 🤝 My contributions to CloudCost CLI
+
+> **This repository is my fork of [raphgm/cloudcost-cli](https://github.com/raphgm/cloudcost-cli).** CloudCost CLI belongs to its author and contributors. I use this fork to prepare and submit contributions, and the original project README is kept below.
+
+## Merged pull requests
+
+| Pull request | What I changed | Merged |
+|---|---|---|
+| [#9](https://github.com/raphgm/cloudcost-cli/pull/9) `test: add policy SQL tests and a CI workflow` | Added `pytest` as a dev dependency (with the lockfile updated), a GitHub Actions workflow that runs the tests on pull requests and on pushes to `main`, and unit tests for the `aks_idle_nodepool` policy. The tests run the policy's SQL against a small in-memory DuckDB table and cover the CPU threshold, the cost formula and the exclusions. | 2026-09-21 |
+| [#10](https://github.com/raphgm/cloudcost-cli/pull/10) `test: add policy SQL tests for rightsizing, snapshots, container registries and app service plans` | Added a shared `run_policy` test fixture and 34 unit tests for the `rightsizing_utilization`, `old_snapshots`, `idle_container_registries` and `idle_app_service_plans` policies. To check that the tests can fail, I deliberately broke a copy of each policy in 17 ways (boundaries, prices, joins, aggregates, filters), and every change made at least one test fail. | 2026-09-21 |
+
+Both pull requests were part of issue [#6](https://github.com/raphgm/cloudcost-cli/issues/6), which asked for automated tests for the policy SQL logic.
+
+## How I worked
+
+- Proposed a small plan on the issue first: a test setup and CI workflow, followed by more policy tests.
+- Tested the policies through the project's own `PolicyRunner`, using small in-memory tables, so no cloud access is needed.
+- Ran the full suite on Python 3.13 with the same command the CI workflow uses.
+- Both pull requests were reviewed and approved by the maintainer, who re-ran the tests and spot-checked them against the real policy SQL before merging.
+
+---
+
+## Original README
+
+*Everything below is the original project README from [raphgm/cloudcost-cli](https://github.com/raphgm/cloudcost-cli).*
+
+---
+
 # CloudCost CLI
 
 **Enterprise Multi-Cloud FinOps Data Platform**
